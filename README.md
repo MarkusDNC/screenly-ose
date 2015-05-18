@@ -1,5 +1,16 @@
 # Screenly OSE - Digital Signage for the Raspberry Pi
 
+This is a fork of Screenly OSE with some very basic authentication added so the admin web interface is not wide open.
+
+Instructions:
+- Install from [this script](https://github.com/jpsingleton/screenly-ose/blob/master/misc/install.sh) (or just overwrite `server.py` with the file from this repo).
+- Then [update the credentials manually](https://github.com/jpsingleton/screenly-ose/blob/master/server.py#L45) (defaults are `admin` and `Scr33nlyOSE`).
+- It's also a _very_ good idea to enable SSL with [this script](https://github.com/jpsingleton/screenly-ose/blob/master/misc/enable_ssl.sh) (only HTTPS will work).
+
+:shipit:
+
+---
+
 To learn more about Screenly, please visit the official website at [ScreenlyApp.com](http://www.screenlyapp.com). On the official site, you'll find the complete installation instructions, along with a live-demo of Screenly.
 
 ## Dockerized Development Environment
