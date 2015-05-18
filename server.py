@@ -20,7 +20,7 @@ import os
 import traceback
 import uuid
 
-from bottle import route, run, request, error, static_file, response
+from bottle import route, run, request, error, static_file, response, auth_basic
 from bottle import HTTPResponse
 from bottlehaml import haml_template
 
@@ -39,6 +39,10 @@ from settings import settings, DEFAULTS
 # Utilities
 ################################
 
+# Update the web admin login credentials here:
+# Good to use only SSL (script in misc folder)
+def check_creds(username, password):
+    return username == "admin" and password == "Scr33nlyOSE"
 
 def make_json_response(obj):
     response.content_type = "application/json"
@@ -196,6 +200,7 @@ def prepare_asset(request):
 
 
 @route('/api/assets', method="GET")
+@auth_basic(check_creds)
 def api_assets():
     assets = assets_helper.read(db_conn)
     return make_json_response(assets)
@@ -216,6 +221,7 @@ def api(view):
 
 
 @route('/api/assets', method="POST")
+@auth_basic(check_creds)
 @api
 def add_asset():
     asset = prepare_asset(request)
@@ -225,18 +231,21 @@ def add_asset():
 
 
 @route('/api/assets/:asset_id', method="GET")
+@auth_basic(check_creds)
 @api
 def edit_asset(asset_id):
     return assets_helper.read(db_conn, asset_id)
 
 
 @route('/api/assets/:asset_id', method=["PUT", "POST"])
+@auth_basic(check_creds)
 @api
 def edit_asset(asset_id):
     return assets_helper.update(db_conn, asset_id, prepare_asset(request))
 
 
 @route('/api/assets/:asset_id', method="DELETE")
+@auth_basic(check_creds)
 @api
 def remove_asset(asset_id):
     asset = assets_helper.read(db_conn, asset_id)
@@ -250,6 +259,7 @@ def remove_asset(asset_id):
 
 
 @route('/api/assets/order', method="POST")
+@auth_basic(check_creds)
 @api
 def playlist_order():
     "Receive a list of asset_ids in the order they should be in the playlist"
@@ -262,11 +272,13 @@ def playlist_order():
 
 
 @route('/')
+@auth_basic(check_creds)
 def viewIndex():
     return template('index')
 
 
 @route('/settings', method=["GET", "POST"])
+@auth_basic(check_creds)
 def settings_page():
 
     context = {'flash': None}
@@ -291,6 +303,7 @@ def settings_page():
 
 
 @route('/system_info')
+@auth_basic(check_creds)
 def system_info():
     viewer_log_file = '/tmp/screenly_viewer.log'
     if path.exists(viewer_log_file):
