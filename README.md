@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/wireload/screenly-ose.svg?branch=master)](https://travis-ci.org/wireload/screenly-ose)
+[![Coverage Status](https://coveralls.io/repos/wireload/screenly-ose/badge.svg?branch=master&service=github)](https://coveralls.io/github/wireload/screenly-ose?branch=master)
+
 # Screenly OSE - Digital Signage for the Raspberry Pi
 
 This is a fork of Screenly OSE with some very basic authentication added so the admin web interface is not wide open.
@@ -19,10 +22,12 @@ To simplify development of the server module of Screenly OSE, we've created a Do
 
 Assuming you're in the source code repository, simply run:
 
-    $ docker run --rm -ti \
-        -p 8080:8080 \
-        -v $(pwd):/home/pi/screenly \
-        wireload/screenly-ose-server
+```
+$ docker run --rm -ti \
+  -p 8080:8080 \
+  -v $(pwd):/home/pi/screenly \
+  wireload/screenly-ose-server
+```
 
 ## Disk Image Changelog
 
